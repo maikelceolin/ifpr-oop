@@ -1,8 +1,2 @@
-
-from funcionario import Funcionario
-
-import funcionario as func
-
-func = func.Funcionario('888888888','maikel')
-func.show()
-
+import empresa
+emp = empresa.Empresa(1,"Fundo de quital", "Das pedras, 12", "321654")

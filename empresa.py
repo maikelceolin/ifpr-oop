@@ -1,26 +1,31 @@
-import funcionario as func
-__func
+import funcionario
 class Empresa():
-    def __init__(self, codigo, nome)
+    __func = []
+    def __init__( self, codigo, nome, endereco, cnpj): 
         self.__codigo = codigo
         self.__nome = nome
-        self.__end = end
-    
-    def describe(self):
-        print(f"\nCodigo: {self.__codigo}\nNome: {self.nome}\nEndereço:{self.__end}\nCPNJ:{self.__cnpj}\n")
-
-    def showfunc(self):
-        print(f"CPF:{self.__cpf}\nFuncionário:{self.__func}")
-
-#contratar  
-
-#pedir dados
-#associacao, agragação e herança
-#exibir lista de funcionarios
-
+        while True:
+            print("1. Contratar")
+            print("2. Exibir lista de funcionarios")
+            op=int( input() )
+   
+            if op==1:
+                self.contratar()
+            elif op==2:
+                self.exibir()
+            else:
+                print("Opçao invalida")
     def contratar(self):
-        nome = input()
-        cpf = input
-        setor = input
-        salario = input
-        self.__func
+        cpf = input("cpf: ")
+        nome = input("Nome: ")
+        setor = input("Setor: ")
+        salario = input("Salario: ")
+        self.__func.append( funcionario.Funcionario(cpf, nome, setor, salario) )
+ 
+    def exibir(self):
+        for fun in self.__func:
+            print(fun.mostraDados())
+
+
+    def mostraDados(self):
+        print(str(self.__codigo)+" "+self.__nome)
