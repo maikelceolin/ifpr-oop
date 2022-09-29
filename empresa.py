@@ -1,20 +1,11 @@
-import funcionario
+import pessoa as p
+
+#define a classe empresa
 class Empresa():
-    __func = []
-    def __init__( self, codigo, nome, endereco, cnpj): 
-        self.__codigo = codigo
-        self.__nome = nome
-        while True:
-            print("1. Contratar")
-            print("2. Exibir lista de funcionarios")
-            op=int( input() )
-   
-            if op==1:
-                self.contratar()
-            elif op==2:
-                self.exibir()
-            else:
-                print("Opçao invalida")
+    def __init__(self, nome, cnpj):
+        self.nome = nome
+        self.cnpj = cnpj
+
     def contratar(self):
         cpf = input("cpf: ")
         nome = input("Nome: ")
@@ -29,3 +20,77 @@ class Empresa():
 
     def mostraDados(self):
         print(str(self.__codigo)+" "+self.__nome)
+
+
+#define a classe FUNCIONARIO importando a classe Pessoa da lib pessoa (pessoa.Pessoa)
+
+class Funcionario(p.Pessoa):
+    def __init__(self, cpf, nome, setor, salario, entrada, saida):
+        p.Pessoa.__init__(cpf, nome)
+        self.__setor = setor
+        self.__salario = salario
+        self.__entrada = entrada
+        self.__saida = saida
+
+    def mostraDados(self):
+        return super().mostraDados()+" "+self.getSetor()
+
+    def setor(self):
+        return self.__setor
+
+    def mostraSalario():
+        print(f"Salario: {self.__salario}")
+
+    def mostraHorario():
+        print(f"\nEntrada: {self.__entrada}\nSaída: {self.__saida}")
+
+
+
+
+#definição dos CARGOS DA EMPRESA herdando a classe Funcionario:
+
+
+class Administrador(Funcionario):
+    def __init__(self, cpf, nome, setor, salario, entrada, saida, ajudaCusto):
+        Funcionario.__init__(cpf, nome, setor, salario, entrada, saida)
+        self.ajudaCusto = ajudaCusto
+
+    def folhaAdm(self):
+        remuneracao = self.__salario + self.ajudaCusto
+        print(f"Remuneração: {remuneracao}")
+
+
+class Vendedor(Funcionario):
+    def __init__(self, cpf, nome, setor, salario, entrada, saida, valorVendas):
+        Funcionario.__init__(cpf, nome, setor, salario, entrada, saida)
+        self.valorVendas = valorVendas
+
+    def valorVenda(self):
+        remuneracao = self.__salario + self.valorVendas
+        print(f"Remuneração: {remuneracao}")
+
+
+class Operario(Funcionario):
+    def __init__(self, cpf, nome, setor, salario, entrada, saida, valorProducao, comissao):
+        Funcionario.__init__(cpf, nome, setor, salario, entrada, saida)
+        self.valorProducao = valorProducao
+        self.comissao = comissao
+
+    def folhaOperario(self):
+        remuneracao = self.__salario + self.comissao
+        print(f"Remuneração: {remuneracao}")
+
+
+
+
+#definição dos FORNECEDORES:
+
+class Fornecedor(p.Pessoa):
+    def __init__(self, cpf, nome, credito, divida):
+        p.Pessoa.__init__(cpf, nome)
+        self.credito = credito
+        self.divida = divida
+
+    def obterSaldo(self):
+        saldo = self.credito - self.divida
+        return saldo
