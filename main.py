@@ -8,8 +8,22 @@ while True:
     if op == "1":
         while True:
             cargo = Menu.cargo(None)
-            if cargo == "0":
+    
+            if cargo == "1":
+                vendedor = Vendedor()
+                vendedor.contratar()
+
+            elif cargo == "2":
+                operario = Operario()
+                operario.contratar()
+
+            elif cargo == "3":
+                adm = Administrador()
+                adm.contratar()
+            
+            elif cargo == "0":
                 break
+
             else:
                 print("\n**** Opção inválida")
 
@@ -17,7 +31,7 @@ while True:
         print("Voce ainda nao fez nada aqui\n")
     else:
         print("\n**** Opção inválida")
-    
+                
 
 
 

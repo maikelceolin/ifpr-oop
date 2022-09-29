@@ -5,13 +5,6 @@ class Empresa():
     def __init__(self, nome, cnpj):
         self.nome = nome
         self.cnpj = cnpj
-
-    def contratar(self):
-        cpf = input("cpf: ")
-        nome = input("Nome: ")
-        setor = input("Setor: ")
-        salario = input("Salario: ")
-        self.__func.append( funcionario.Funcionario(cpf, nome, setor, salario) )
  
     def exibir(self):
         for fun in self.__func:
@@ -26,12 +19,12 @@ class Empresa():
 
 class Funcionario(p.Pessoa):
     def __init__(self, cpf, nome, setor, salario, entrada, saida):
-        p.Pessoa.__init__(cpf, nome)
-        self.__setor = setor
-        self.__salario = salario
-        self.__entrada = entrada
-        self.__saida = saida
-
+        super().__init__(cpf, nome)
+        self.setor = setor
+        self.salario = salario
+        self.entrada = entrada
+        self.saida = saida
+        
     def mostraDados(self):
         return super().mostraDados()+" "+self.getSetor()
 
@@ -45,34 +38,70 @@ class Funcionario(p.Pessoa):
         print(f"\nEntrada: {self.__entrada}\nSaída: {self.__saida}")
 
 
-
-
 #definição dos CARGOS DA EMPRESA herdando a classe Funcionario:
 
 
 class Administrador(Funcionario):
-    def __init__(self, cpf, nome, setor, salario, entrada, saida, ajudaCusto):
-        Funcionario.__init__(cpf, nome, setor, salario, entrada, saida)
+    def __init__(self, cpf=None, nome=None, setor=None, salario=None, entrada=None, saida=None, ajudaCusto=None):
+        super().__init__(cpf, nome, setor, salario, entrada, saida)
         self.ajudaCusto = ajudaCusto
 
     def folhaAdm(self):
         remuneracao = self.__salario + self.ajudaCusto
         print(f"Remuneração: {remuneracao}")
 
+    def contratar(self):
+        print("Insira os dados do novo Administrador:")
+
+        cpf = str(input("CPF: "))
+        self.cpf = cpf
+
+        nome = str(input("Nome: "))
+        self.nome = nome
+
+        setor = str(input("Setor: "))
+        self.setor = setor
+
+        entrada = str(input("Entrada: "))
+        self.entrada = entrada
+
+        saida = str(input("Saída: "))
+        self.saida = saida
+
+        ajudaCusto = str(input("Valor do vale gasolina: "))
+        self.ajudaCusto = ajudaCusto
 
 class Vendedor(Funcionario):
-    def __init__(self, cpf, nome, setor, salario, entrada, saida, valorVendas):
-        Funcionario.__init__(cpf, nome, setor, salario, entrada, saida)
+    def __init__(self, cpf=None, nome=None, setor="Loja", salario=None, entrada=None, saida=None, valorVendas=0, comissao=30):
+        super().__init__(cpf, nome, setor, salario, entrada, saida)
         self.valorVendas = valorVendas
+        self.comissao = comissao
 
     def valorVenda(self):
-        remuneracao = self.__salario + self.valorVendas
+        remuneracao = self.salario + self.valorVendas*comissao
         print(f"Remuneração: {remuneracao}")
 
+    def contratar(self):
+        print("Insira os dados do novo Vendedor:")
+        
+        cpf = str(input("CPF: "))
+        self.cpf = cpf
+
+        nome = str(input("Nome: "))
+        self.nome = nome
+
+        setor = str(input("Setor: "))
+        self.setor = setor
+
+        entrada = str(input("Entrada: "))
+        self.entrada = entrada
+
+        saida = str(input("Saída: "))
+        self.saida = saida
 
 class Operario(Funcionario):
-    def __init__(self, cpf, nome, setor, salario, entrada, saida, valorProducao, comissao):
-        Funcionario.__init__(cpf, nome, setor, salario, entrada, saida)
+    def __init__(self, cpf=None, nome=None, setor="Fabrica", salario=2000, entrada=None, saida=None, valorProducao=None, comissao=20):
+        super().__init__(cpf, nome, setor, salario, entrada, saida)
         self.valorProducao = valorProducao
         self.comissao = comissao
 
@@ -80,6 +109,23 @@ class Operario(Funcionario):
         remuneracao = self.__salario + self.comissao
         print(f"Remuneração: {remuneracao}")
 
+    def contratar(self):
+        print("Insira os dados do novo Operário:")
+
+        cpf = str(input("CPF: "))
+        self.cpf = cpf
+
+        nome = str(input("Nome: "))
+        self.nome = nome
+
+        setor = str(input("Setor: "))
+        self.setor = setor
+
+        entrada = str(input("Entrada: "))
+        self.entrada = entrada
+
+        saida = str(input("Saída: "))
+        self.saida = saida
 
 
 

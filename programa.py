@@ -23,3 +23,5 @@ class Menu():
         print("0. Voltar ao menu anterior\n")
         opcao = str(input())
         return opcao
+
+    

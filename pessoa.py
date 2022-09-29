@@ -1,7 +1,7 @@
 class Pessoa():
     def __init__(self, cpf, nome):
-        self.__cpf = cpf
-        self.__nome = nome
+        self.cpf = cpf
+        self.nome = nome
 
     def info(self):
-        print(f"Nome: {self.__nome}  CPF:{self.__cpf}")
+        print(f"Nome: {self.nome}  CPF:{self.cpf}")
