@@ -7,25 +7,27 @@ while True:
     op = Menu.principal(None)
     if op == "1":
         
-        i = [] # este i serve para controlar as linhas do excel, a cada laço, desce uma linha
+        i = [1] # este i serve para controlar as linhas do excel, a cada laço, desce uma linha
         while True:
             cargo = Menu.cargo(None)
     
             if cargo == "1":
-                vendedor = Vendedor()
-                vendedor.contratar()
                 i.append(1)
+                vendedor = Vendedor()
+                vendedor.contratar(i)
+                
 
             elif cargo == "2":
-                operario = Operario()
-                operario.contratar()
                 i.append(1)
+                operario = Operario()
+                operario.contratar(i)
+                
 
             elif cargo == "3":
-                adm = Administrador()
-                adm.contratar()
                 i.append(1)
-            
+                adm = Administrador()
+                adm.contratar(i)
+                
             elif cargo == "0":
                 break
 

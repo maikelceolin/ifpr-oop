@@ -53,6 +53,7 @@ class Administrador(Funcionario):
 
     def contratar(self, i):
 
+        j = str(len(i))
         #abre planilha para edição
         planilha = load_workbook("./cadastro.xlsx")
         tabela = planilha.active
@@ -65,23 +66,26 @@ class Administrador(Funcionario):
         self.entrada = str(input("Entrada: "))
         self.saida = str(input("Saída: "))
         self.auxilio = str(input("Valor do vale gasolina: "))
+        remuneracao = self.salario + self.auxilio
         
         #Insere dados na planilha iniciando da linha 2:
-        tabela['A'+ str(i)] = self.nome # A1 - nome
-        tabela['B'+ str(i)] = self.cpf # B1 - cpf
-        tabela['C'+ str(i)] = self.setor # C1 - setor
-        tabela['D'+ str(i)] = self.entrada # D1 - entrada
-        tabela['E'+ str(i)] = self.saida # E1 - saida
-        tabela['F'+ str(i)] = "Administrador" # F1 - Cargo
-        tabela['G'+ str(i)] = self.salario # G1 - salario
-        tabela['H'+ str(i)] = self.auxilio # H1 - auxilio
-        tabela['I'+ str(i)] = None # I1 - vendas
-        tabela['J'+ str(i)] = None # J1 - producao
-        tabela['K'+ str(i)] = None # K1 - comissao
-        tabela['L'+ str(i)] = self.salario + self.auxilio # L1 - remuneracao
+        tabela['A'+ j].value = self.nome # A1 - nome
+        tabela['B'+ j].value = self.cpf # B1 - cpf
+        tabela['C'+ j].value = self.setor # C1 - setor
+        tabela['D'+ j].value = self.entrada # D1 - entrada
+        tabela['E'+ j].value = self.saida # E1 - saida
+        tabela['F'+ j].value = "Administrador" # F1 - Cargo
+        tabela['G'+ j].value = str(self.salario) # G1 - salario
+        tabela['H'+ j].value = str(self.auxilio) # H1 - auxilio
+        tabela['I'+ j].value = None # I1 - vendas
+        tabela['J'+ j].value = None # J1 - producao
+        tabela['K'+ j].value = None # K1 - comissao
+        tabela['L'+ j].value = str(remuneracao) # L1 - remuneracao
+
+        planilha.save("./cadastro.xlsx")
 
 class Vendedor(Funcionario):
-    def __init__(self, cpf=None, nome=None, setor="Loja", salario=1500, entrada=None, saida=None, vendas=0, comissao=30):
+    def __init__(self, cpf=None, nome=None, setor="Loja", salario=None, entrada=None, saida=None, vendas=0, comissao=30):
         super().__init__(cpf, nome, setor, salario, entrada, saida)
         self.vendas = vendas
         self.comissao = comissao
@@ -91,6 +95,8 @@ class Vendedor(Funcionario):
         print(f"Remuneração: {remuneracao}")
 
     def contratar(self, i):
+
+        j = str(len(i))
 
         #abre planilha para edição
         planilha = load_workbook("./cadastro.xlsx")
@@ -103,21 +109,24 @@ class Vendedor(Funcionario):
         self.setor = str(input("Setor: "))
         self.entrada = str(input("Entrada: "))
         self.saida = str(input("Saída: "))
-        self.auxilio = str(input("Valor do vale gasolina: "))
+        self.salario = str(input("Salario combinado: "))
+        self.vendas = ""
+        self.comissao = ""
         
         #Insere dados na planilha iniciando da linha 2:
-        tabela['A'+ str(i)] = self.nome # A1 - nome
-        tabela['B'+ str(i)] = self.cpf # B1 - cpf
-        tabela['C'+ str(i)] = self.setor # C1 - setor
-        tabela['D'+ str(i)] = self.entrada # D1 - entrada
-        tabela['E'+ str(i)] = self.saida # E1 - saida
-        tabela['F'+ str(i)] = "Vendedor" # F1 - Cargo
-        tabela['G'+ str(i)] = self.salario # G1 - salario
-        tabela['H'+ str(i)] = None # H1 - auxilio
-        tabela['I'+ str(i)] = self.vendas # I1 - vendas
-        tabela['J'+ str(i)] = None # J1 - producao
-        tabela['K'+ str(i)] = self.comissao # K1 - comissao
-        tabela['L'+ str(i)] = self.salario + self.vendas*self.comissao # L1 - remuneracao
+        tabela['A'+ j].value = self.nome # A1 - nome
+        tabela['B'+ j].value = self.cpf # B1 - cpf
+        tabela['C'+ j].value = self.setor # C1 - setor
+        tabela['D'+ j].value = self.entrada # D1 - entrada
+        tabela['E'+ j].value = self.saida # E1 - saida
+        tabela['F'+ j].value = "Vendedor" # F1 - Cargo
+        tabela['G'+ j].value = self.salario # G1 - salario
+        tabela['H'+ j].value = "" # H1 - auxilio
+        tabela['I'+ j].value = self.vendas # I1 - vendas
+        tabela['J'+ j].value = "" # J1 - producao
+        tabela['K'+ j].value = self.comissao # K1 - comissao
+
+        planilha.save("./cadastro.xlsx")
 
 class Operario(Funcionario):
     def __init__(self, cpf=None, nome=None, setor="Fabrica", salario=2000, entrada=None, saida=None, producao=None, comissao=20):
@@ -131,6 +140,8 @@ class Operario(Funcionario):
 
     def contratar(self,i):
 
+        j = str(len(i))
+
         #abre planilha para edição
         planilha = load_workbook("./cadastro.xlsx")
         tabela = planilha.active
@@ -142,21 +153,23 @@ class Operario(Funcionario):
         self.setor = str(input("Setor: "))
         self.entrada = str(input("Entrada: "))
         self.saida = str(input("Saída: "))
-        self.auxilio = str(input("Valor do vale gasolina: "))
-        
+        remuneracao = self.salario + self.producao*self.comissao
+
         #Insere dados na planilha iniciando da linha 2:
-        tabela['A'+ str(i)] = self.nome # A1 - nome
-        tabela['B'+ str(i)] = self.cpf # B1 - cpf
-        tabela['C'+ str(i)] = self.setor # C1 - setor
-        tabela['D'+ str(i)] = self.entrada # D1 - entrada
-        tabela['E'+ str(i)] = self.saida # E1 - saida
-        tabela['F'+ str(i)] = "Operario" # F1 - Cargo
-        tabela['G'+ str(i)] = self.salario # G1 - salario
-        tabela['H'+ str(i)] = None # H1 - auxilio
-        tabela['I'+ str(i)] = None # I1 - vendas
-        tabela['J'+ str(i)] = self.producao # J1 - producao
-        tabela['K'+ str(i)] = self.comissao # K1 - comissao
-        tabela['L'+ str(i)] = self.salario + self.producao*self.comissao # L1 - remuneracao
+        tabela['A'+ j].value = self.nome # A1 - nome
+        tabela['B'+ j].value = self.cpf # B1 - cpf
+        tabela['C'+ j].value = self.setor # C1 - setor
+        tabela['D'+ j].value = self.entrada # D1 - entrada
+        tabela['E'+ j].value = self.saida # E1 - saida
+        tabela['F'+ j].value = "Operario" # F1 - Cargo
+        tabela['G'+ j].value = str(self.salario) # G1 - salario
+        tabela['H'+ j].value = None # H1 - auxilio
+        tabela['I'+ j].value = None # I1 - vendas
+        tabela['J'+ j].value = str(self.producao) # J1 - producao
+        tabela['K'+ j].value = str(self.comissao) # K1 - comissao
+        tabela['L'+ j].value = str(remuneracao) # L1 - remuneracao
+
+        planilha.save("./cadastro.xlsx")
 
 
 #definição dos FORNECEDORES:
