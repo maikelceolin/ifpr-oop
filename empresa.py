@@ -1,4 +1,5 @@
 import pessoa as p
+from openpyxl import load_workbook
 
 #define a classe empresa
 class Empresa():
@@ -42,91 +43,120 @@ class Funcionario(p.Pessoa):
 
 
 class Administrador(Funcionario):
-    def __init__(self, cpf=None, nome=None, setor=None, salario=None, entrada=None, saida=None, ajudaCusto=None):
+    def __init__(self, cpf=None, nome=None, setor=None, salario=5000, entrada=None, saida=None, auxilio=None):
         super().__init__(cpf, nome, setor, salario, entrada, saida)
-        self.ajudaCusto = ajudaCusto
+        self.auxilio = auxilio
 
     def folhaAdm(self):
-        remuneracao = self.__salario + self.ajudaCusto
+        remuneracao = self.salario + self.auxilio
         print(f"Remuneração: {remuneracao}")
 
-    def contratar(self):
+    def contratar(self, i):
+
+        #abre planilha para edição
+        planilha = load_workbook("./cadastro.xlsx")
+        tabela = planilha.active
+
         print("Insira os dados do novo Administrador:")
 
-        cpf = str(input("CPF: "))
-        self.cpf = cpf
-
-        nome = str(input("Nome: "))
-        self.nome = nome
-
-        setor = str(input("Setor: "))
-        self.setor = setor
-
-        entrada = str(input("Entrada: "))
-        self.entrada = entrada
-
-        saida = str(input("Saída: "))
-        self.saida = saida
-
-        ajudaCusto = str(input("Valor do vale gasolina: "))
-        self.ajudaCusto = ajudaCusto
+        self.nome = str(input("Nome: "))
+        self.cpf = str(input("CPF: "))
+        self.setor = str(input("Setor: "))
+        self.entrada = str(input("Entrada: "))
+        self.saida = str(input("Saída: "))
+        self.auxilio = str(input("Valor do vale gasolina: "))
+        
+        #Insere dados na planilha iniciando da linha 2:
+        tabela['A'+ str(i)] = self.nome # A1 - nome
+        tabela['B'+ str(i)] = self.cpf # B1 - cpf
+        tabela['C'+ str(i)] = self.setor # C1 - setor
+        tabela['D'+ str(i)] = self.entrada # D1 - entrada
+        tabela['E'+ str(i)] = self.saida # E1 - saida
+        tabela['F'+ str(i)] = "Administrador" # F1 - Cargo
+        tabela['G'+ str(i)] = self.salario # G1 - salario
+        tabela['H'+ str(i)] = self.auxilio # H1 - auxilio
+        tabela['I'+ str(i)] = None # I1 - vendas
+        tabela['J'+ str(i)] = None # J1 - producao
+        tabela['K'+ str(i)] = None # K1 - comissao
+        tabela['L'+ str(i)] = self.salario + self.auxilio # L1 - remuneracao
 
 class Vendedor(Funcionario):
-    def __init__(self, cpf=None, nome=None, setor="Loja", salario=None, entrada=None, saida=None, valorVendas=0, comissao=30):
+    def __init__(self, cpf=None, nome=None, setor="Loja", salario=1500, entrada=None, saida=None, vendas=0, comissao=30):
         super().__init__(cpf, nome, setor, salario, entrada, saida)
-        self.valorVendas = valorVendas
+        self.vendas = vendas
         self.comissao = comissao
 
     def valorVenda(self):
-        remuneracao = self.salario + self.valorVendas*comissao
+        remuneracao = self.salario + self.vendas*self.comissao
         print(f"Remuneração: {remuneracao}")
 
-    def contratar(self):
+    def contratar(self, i):
+
+        #abre planilha para edição
+        planilha = load_workbook("./cadastro.xlsx")
+        tabela = planilha.active
+
         print("Insira os dados do novo Vendedor:")
         
-        cpf = str(input("CPF: "))
-        self.cpf = cpf
-
-        nome = str(input("Nome: "))
-        self.nome = nome
-
-        setor = str(input("Setor: "))
-        self.setor = setor
-
-        entrada = str(input("Entrada: "))
-        self.entrada = entrada
-
-        saida = str(input("Saída: "))
-        self.saida = saida
+        self.nome = str(input("Nome: "))
+        self.cpf = str(input("CPF: "))
+        self.setor = str(input("Setor: "))
+        self.entrada = str(input("Entrada: "))
+        self.saida = str(input("Saída: "))
+        self.auxilio = str(input("Valor do vale gasolina: "))
+        
+        #Insere dados na planilha iniciando da linha 2:
+        tabela['A'+ str(i)] = self.nome # A1 - nome
+        tabela['B'+ str(i)] = self.cpf # B1 - cpf
+        tabela['C'+ str(i)] = self.setor # C1 - setor
+        tabela['D'+ str(i)] = self.entrada # D1 - entrada
+        tabela['E'+ str(i)] = self.saida # E1 - saida
+        tabela['F'+ str(i)] = "Vendedor" # F1 - Cargo
+        tabela['G'+ str(i)] = self.salario # G1 - salario
+        tabela['H'+ str(i)] = None # H1 - auxilio
+        tabela['I'+ str(i)] = self.vendas # I1 - vendas
+        tabela['J'+ str(i)] = None # J1 - producao
+        tabela['K'+ str(i)] = self.comissao # K1 - comissao
+        tabela['L'+ str(i)] = self.salario + self.vendas*self.comissao # L1 - remuneracao
 
 class Operario(Funcionario):
-    def __init__(self, cpf=None, nome=None, setor="Fabrica", salario=2000, entrada=None, saida=None, valorProducao=None, comissao=20):
+    def __init__(self, cpf=None, nome=None, setor="Fabrica", salario=2000, entrada=None, saida=None, producao=None, comissao=20):
         super().__init__(cpf, nome, setor, salario, entrada, saida)
-        self.valorProducao = valorProducao
+        self.producao = producao
         self.comissao = comissao
 
     def folhaOperario(self):
         remuneracao = self.__salario + self.comissao
         print(f"Remuneração: {remuneracao}")
 
-    def contratar(self):
+    def contratar(self,i):
+
+        #abre planilha para edição
+        planilha = load_workbook("./cadastro.xlsx")
+        tabela = planilha.active
+
         print("Insira os dados do novo Operário:")
 
-        cpf = str(input("CPF: "))
-        self.cpf = cpf
-
-        nome = str(input("Nome: "))
-        self.nome = nome
-
-        setor = str(input("Setor: "))
-        self.setor = setor
-
-        entrada = str(input("Entrada: "))
-        self.entrada = entrada
-
-        saida = str(input("Saída: "))
-        self.saida = saida
-
+        self.nome = str(input("Nome: "))
+        self.cpf = str(input("CPF: "))
+        self.setor = str(input("Setor: "))
+        self.entrada = str(input("Entrada: "))
+        self.saida = str(input("Saída: "))
+        self.auxilio = str(input("Valor do vale gasolina: "))
+        
+        #Insere dados na planilha iniciando da linha 2:
+        tabela['A'+ str(i)] = self.nome # A1 - nome
+        tabela['B'+ str(i)] = self.cpf # B1 - cpf
+        tabela['C'+ str(i)] = self.setor # C1 - setor
+        tabela['D'+ str(i)] = self.entrada # D1 - entrada
+        tabela['E'+ str(i)] = self.saida # E1 - saida
+        tabela['F'+ str(i)] = "Operario" # F1 - Cargo
+        tabela['G'+ str(i)] = self.salario # G1 - salario
+        tabela['H'+ str(i)] = None # H1 - auxilio
+        tabela['I'+ str(i)] = None # I1 - vendas
+        tabela['J'+ str(i)] = self.producao # J1 - producao
+        tabela['K'+ str(i)] = self.comissao # K1 - comissao
+        tabela['L'+ str(i)] = self.salario + self.producao*self.comissao # L1 - remuneracao
 
 
 #definição dos FORNECEDORES:
