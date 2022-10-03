@@ -1,4 +1,4 @@
-from empresa import Empresa, Administrador, Vendedor, Operario
+from funcionario import Empresa, Administrador, Vendedor, Operario
 from programa import Menu
 
 Menu.titulo(None)
