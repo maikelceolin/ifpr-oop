@@ -11,4 +11,4 @@ Para funcionar corretamente, precisa do seguinte:
 
 1. A planilha esta vazia, assim, é necessário antes contratar algum funcionário.
 2. Escolhi deixar as classes de "cargos" dentro de funcionario.py
-3. Executar arquivo main
+3. Executar arquivo MAIN.py
