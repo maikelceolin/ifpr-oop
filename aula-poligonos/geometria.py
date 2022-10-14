@@ -9,6 +9,10 @@ class Ponto:
         print(f"{self.x},{self.y}")
 
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 1f3cee26ed0a7de142abf5bb0ddb9bc50c14f6ee
 class Reta:
     #Usando o tipo de dado "Ponto" criado na classe Ponto
     def __init__(self, p1:Ponto, p2:Ponto):
