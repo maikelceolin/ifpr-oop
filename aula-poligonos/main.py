@@ -1,3 +1,4 @@
+
 from geometria import Ponto, Reta
 from poligono import Pentagono, Quadrilatero
 
